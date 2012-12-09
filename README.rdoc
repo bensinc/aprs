@@ -1,0 +1,3 @@
+== Ben's APRS Console
+
+A web-based console for displaying APRS data. Designed for use on a Raspberry Pi mounted in a car.

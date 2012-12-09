@@ -1,0 +1,39 @@
+<div id="buttons" class="list rightColumn">
+	<h1>&nbsp;</h1>
+	<div>	
+		<a href="#" id="settingsButton" class="button">Settings</a>		
+		<a href="#" class="button">Messages</a>
+		<br/><br/>
+		<a href="#" class="button">Map</a>		
+		<a href="#" class="button active">Beacon</a>		
+	</div>
+</div>
+
+<div id="tracker" class="list leftColumn">
+	<h1>Tracking</h1>
+	<%= render :partial => 'tracker', :locals => {:packet => Packet.find(:first, :conditions => ['speed > 10'], :order => "RAND()")} %>
+</div>
+
+<div style="clear: both;"></div>
+
+
+<div id="recent" class="list leftColumn">
+	<h1>Recent</h1>
+	<%= render :partial => 'list', :locals => {:packets => @recent_packets} %>
+</div>
+
+<div id="nearby" class="list rightColumn">
+	<h1>Nearby</h1>
+	<%= render :partial => 'list', :locals => {:packets => @nearby_packets} %>
+</div>
+
+<div id="overlay" style="display: none;">
+
+</div>
+
+<div id="window" style="display: none;">
+	<div id="windowControls">
+		<a href="#" class="button" id="closeButton">close</a>
+	</div>
+	<div id="windowContent"></div>
+</div>

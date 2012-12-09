@@ -1,0 +1,37 @@
+<div class="packet" id="packet_<%= packet.name %>">
+		<img src="/images/symbols/079.gif"/>
+		<div class="info">
+			<% if packet.lat and packet.lon %>
+				<div class="arrow">
+					<img src="/images/arrow.png" style="width: 20px; height: 20px; -webkit-transform:rotate(<%= packet.heading(@lat, @lon) %>deg);"/>
+					<div><%= number_with_delimiter number_with_precision packet.distance(@lat, @lon), :precision => 2 %> mi</div>
+				</div>
+			<% end %>
+			<h2><%= packet.name %></h2>
+			<div class="comment"><%= packet.comment %></div>
+			<div class="attributes">				
+				<% if packet.speed %>
+					<div><span>Speed</span> <%= number_with_delimiter number_with_precision (packet.speed * 0.621371, :precision => 0) %> mph</div>
+				<% end %>
+
+				<% if packet.course %>
+					<div><span>Course</span> <%= packet.course %>&deg;</div>
+				<% end %>
+
+				<% if packet.altitude and packet.altitude > 0 %>
+					<div><span>Altitude</span> <%= number_with_delimiter number_with_precision packet.altitude * 3.28084, :precision => 0 %> ft</div>
+				<% end %>
+			</div>
+			<div class="clear"></div>
+			<div class="meta">
+							<% if packet.kind == 'object' %>
+				<div class="meta">object from <%= packet.from %></div>
+			<% end %>
+
+				<%= time_ago_in_words packet.created_at %> ago
+				<div style="color: #999;font-size: 12px;">
+					<%= packet.path %>
+				</div>
+			</div>
+		</div>
+	</div>

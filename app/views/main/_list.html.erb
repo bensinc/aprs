@@ -1,0 +1,20 @@
+<div class="scrollList">
+<% for packet in packets %>
+	<div class="packet" id="packet_<%= packet.name %>" onclick="showPacket(<%= packet.id %>);">
+		<img src="/images/symbols/062.gif"/>
+		<div class="info">
+			<% if packet.lat and packet.lon %>
+				<div class="arrow">
+					<img src="/images/arrow.png" style="width: 20px; height: 20px; -webkit-transform:rotate(<%= packet.heading(@lat, @lon) %>deg);"/>
+					<div><%= number_with_delimiter number_with_precision packet.distance(@lat, @lon), :precision => 2 %> mi</div>
+				</div>
+			<% end %>
+			<h2><%= packet.name %></h2>
+			<div class="comment"><%= packet.comment %></div>
+			<div class="meta">
+				<%= time_ago_in_words packet.created_at %> ago
+			</div>
+		</div>
+	</div>
+<% end %>
+</div>
