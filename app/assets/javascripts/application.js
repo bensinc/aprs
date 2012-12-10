@@ -15,6 +15,10 @@
 //= require_tree .
 
 
+var tracking;
+var lastRecentId = 0;
+
+
 function showWindow() {
 	$('#overlay').fadeIn(50);
 	$('#window').fadeIn(300);
@@ -35,10 +39,53 @@ function showPacket(id) {
 	});	
 }
 
+function track(name) {
+	tracking = name;
+	$.ajax({
+	  url: "/main/track?name=" + name,
+	  context: document.body
+	}).done(function(response) { 
+	  $('#trackingContent').html(response);
+	  hideWindow();
+	});	
+}
+
+function refresh() {
+	$.ajax({
+	  url: "/main/tracked?name=" + tracking,
+	  context: document.body
+	}).done(function(response) { 
+	  $('#trackingContent').html(response);	  
+	});		
+
+	$.ajax({
+	  url: "/main/recent?id=" + lastRecentId,
+	  context: document.body
+	}).done(function(response) { 
+	  $('#recentContent .scrollList').prepend(response);	  
+	  return(false);
+	});		
+
+	$.ajax({
+	  url: "/main/nearby",
+	  context: document.body
+	}).done(function(response) { 
+	  $('#nearbyContent').html(response);	  
+	  return(false);
+	});		
+
+	return(false);
+
+}
+
 
 $(function() {
 	$('#settingsButton').click(function() {
 		showWindow();
+	});
+
+	$('#refreshButton').click(function() {
+		refresh();
 	});
 
 	$('#closeButton').click(function() {
@@ -48,6 +95,9 @@ $(function() {
 	$('#overlay').click(function() {
 		hideWindow();
 	});
+
+	// setInterval(refresh,2000);
+
 
 });
 

@@ -3,6 +3,13 @@ Aprs::Application.routes.draw do
 
   get "main/packet_info"
 
+  get "main/track"
+
+  get "main/tracked"
+  get "main/recent"
+  get "main/nearby"
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

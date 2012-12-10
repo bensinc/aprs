@@ -1,5 +1,5 @@
-<div class="scrollList">
-<% for packet in packets %>
+
+<% for packet in @recent_packets %>
 	<div class="packet" id="packet_<%= packet.name %>" onclick="showPacket(<%= packet.id %>);">
 		<img src="/images/symbols/062.gif"/>
 		<div class="info">
@@ -17,5 +17,11 @@
 		</div>
 	</div>
 <% end %>
-</div>
 
+
+<% if @last_recent_id %>
+	<script language="JavaScript">
+		lastRecentId = @last_recent_id;
+		alert(lastRecentId);
+	</script>
+<% end %>

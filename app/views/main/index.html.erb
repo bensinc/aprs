@@ -6,12 +6,18 @@
 		<br/><br/>
 		<a href="#" class="button">Map</a>		
 		<a href="#" class="button active">Beacon</a>		
+		<a href="#" id="refreshButton" class="button">Refresh</a>		
 	</div>
 </div>
 
 <div id="tracker" class="list leftColumn">
 	<h1>Tracking</h1>
-	<%= render :partial => 'tracker', :locals => {:packet => Packet.find(:first, :conditions => ['speed > 10'], :order => "RAND()")} %>
+	<div id="trackingContent">		
+
+		<% if @packet %>
+			<%= render :partial => 'tracker', :locals => {:packet => @packet} %>
+		<% end %>
+	</div>
 </div>
 
 <div style="clear: both;"></div>
@@ -19,12 +25,16 @@
 
 <div id="recent" class="list leftColumn">
 	<h1>Recent</h1>
-	<%= render :partial => 'list', :locals => {:packets => @recent_packets} %>
+	<div id="recentContent">
+		<%= render :partial => 'list', :locals => {:packets => @recent_packets} %>
+	</div>
 </div>
 
 <div id="nearby" class="list rightColumn">
 	<h1>Nearby</h1>
-	<%= render :partial => 'list', :locals => {:packets => @nearby_packets} %>
+	<div id="nearbyContent">
+		<%= render :partial => 'list', :locals => {:packets => @nearby_packets} %>
+	</div>
 </div>
 
 <div id="overlay" style="display: none;">
@@ -33,7 +43,15 @@
 
 <div id="window" style="display: none;">
 	<div id="windowControls">
-		<a href="#" class="button" id="closeButton">close</a>
+		<a href="#" class="button" id="closeButton">Close</a>
 	</div>
 	<div id="windowContent"></div>
 </div>
+
+
+<script language="JavaScript">
+<% if Setting.find(:first, :conditions => "`key` = 'tracking'") %>
+	tracking = '<%= Setting.find(:first, :conditions => "`key` = 'tracking'").value %>';
+<% end %>
+
+</script>

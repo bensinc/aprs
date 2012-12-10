@@ -8,7 +8,7 @@ $dsn = "DBI:mysql:database=aprs;host=localhost";
 
 $dbh = DBI->connect($dsn, 'root', '');
 
-my $is = new Ham::APRS::IS('rotate.aprs.net:10152', 'N0CALL', 'appid' => 'IS-pm-test 1.0');
+my $is = new Ham::APRS::IS('rotate.aprs.net:10152', 'KC0ZMX', 'appid' => 'BenAPRS 0.1', 'filter' => 'r/41.62217/-93.80767/100');
 $is->connect('retryuntil' => 3) || die "Failed to connect: $is->{error}";
 
 for (my $i = 0; $i < 10; $i += 1) {
